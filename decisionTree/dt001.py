@@ -1,3 +1,5 @@
+# coding:utf-8
+
 from math import log
 from matplotlib import pyplot
 import operator
@@ -7,9 +9,9 @@ import pickle
 pyplot.rcParams['font.sans-serif'] = ['SimHei']
 pyplot.rcParams['axes.unicode_minus'] = False
 
-fr = open('lense.txt')
+fr = open('lense.txt', encoding='utf-8')
 dataSet = [record.strip().split('\t') for record in fr.readlines()]
-labels = ['age', 'prescript', 'astigmatic', 'tear_rate']
+labels = ['年龄', '症状', '是否散光', '眼泪量']
 
 
 def calShannonEnt(dataSet):
