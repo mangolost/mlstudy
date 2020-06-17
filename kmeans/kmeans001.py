@@ -35,12 +35,13 @@ def randomCenter(dataMat, k):
     :param k:
     :return:
     """
+    numpy.random.seed(1111)
     n = numpy.shape(dataMat)[1]
     centroids = numpy.mat(numpy.zeros((k, n)))
     for j in range(n):
         minJ = min(dataMat[:, j])
         rangeJ = float(numpy.max(dataMat[:, j]) - minJ)
-        centroids[:, j] = minJ + rangeJ + numpy.random.rand(k, 1)
+        centroids[:, j] = minJ + rangeJ * numpy.random.rand(k, 1)
     return centroids
 
 
@@ -56,6 +57,7 @@ def kmeans(dataSet, k):
     clusterAssment = numpy.mat(numpy.ones((m, 2)))
     centroids = randomCenter(dataMat, k)
     print(centroids)
+    printScatter(dataMat, centroids, clusterAssment)
     clusterChanged = True
     while clusterChanged:
         clusterChanged = False
@@ -79,6 +81,7 @@ def kmeans(dataSet, k):
         print(centroids)
     print(centroids)
     print(clusterAssment)
+    printScatter(dataMat, centroids, clusterAssment)
     return centroids, clusterAssment
 
 
@@ -97,11 +100,11 @@ def printScatter(dataMat, centroids, clusterAssment):
         labelMat.append(clusterAssment[i, 0] + 1)
 
     fig = plt.figure()
-    ax = fig.add_subplot(111)
-    ax.scatter(dataSet[:, 0], dataSet[:, 1], 10.0 * numpy.ones(len(labelMat)), 15 * numpy.array(labelMat))
-    ax.scatter(centroids.A[:, 0], centroids.A[:, 1], 25.0 * numpy.ones(len(centroids.A)), 'red')
     plt.xlabel("Feature 1")
     plt.ylabel("Feature 2")
+    ax = fig.add_subplot(111)
+    ax.scatter(dataSet[:, 0], dataSet[:, 1], 10.0 * numpy.ones(len(labelMat)), 15 * numpy.array(labelMat))
+    ax.scatter(centroids.A[:, 0], centroids.A[:, 1], 50.0 * numpy.ones(len(centroids.A)), 15 * numpy.array([1,2,3,4]), edgecolors='red', marker='p', linewidths=2)
     plt.show()
 
 
